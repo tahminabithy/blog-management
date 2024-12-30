@@ -1,10 +1,10 @@
-import { Response } from "express";
-import { StatusCodes } from "http-status-codes";
+import { Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 
 type response<T> = {
   status: boolean;
   message: string;
-  statusCode?:number;
+  statusCode?: number;
   data: T;
 };
 

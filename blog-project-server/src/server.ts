@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import app from "./app";
-import config from "./config";
+import mongoose from 'mongoose';
+import app from './app';
+import config from './config';
 const port = 3000;
 
 const runServer = async () => {

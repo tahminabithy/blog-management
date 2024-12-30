@@ -14,10 +14,13 @@ class QueryBuilder<T> {
     this.modelQuery = this.modelQuery.find({
       $or: searchAbleFields.map((field: any) => {
         return { [field]: { $regex: searchTerm, $options: 'i' } }; // Case-insensitive regex
-      })
+      }),
     });
 
     return this; // Return `this` to enable method chaining
   }
+  //   filter(){
+
+  //   }
 }
 export default QueryBuilder;
