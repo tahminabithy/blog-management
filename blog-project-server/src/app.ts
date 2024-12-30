@@ -11,9 +11,9 @@ app.use(cors());
 app.use("/api", userRouter);
 app.use("/api", blogRouter);
 
-app.use("*", (req, res) => {
-  res.status(404).json({ message: "Route not found" });
-});
+// app.use("*", (req, res) => {
+//   res.status(404).json({ message: "Route not found" });
+// });
 
 app.use(globalErrorHandler);
 app.get("/", (req, res) => {

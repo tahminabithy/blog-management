@@ -8,6 +8,7 @@ const createUser = catchAsync(async (req, res) => {
   const responseData = {
     status: true,
     message: "User created successfully",
+    statusCode:201,
     data: result,
   };
   sendResponse(res, responseData);
@@ -17,6 +18,7 @@ const login = catchAsync(async (req, res, next) => {
   const responseData = {
     status: true,
     message: "User logged in successfully",
+    statusCode:201,
     data: result,
   };
   sendResponse(res, responseData);

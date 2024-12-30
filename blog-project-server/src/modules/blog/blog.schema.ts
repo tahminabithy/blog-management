@@ -13,7 +13,7 @@ const blogSchema = new Schema<Iblog>(
       required: [true, "Content is required"],
       trim: true,
       maxlength: [500, "Content should not exceed 500 characters"],
-      minlength: [50, "Content should have at least 50 characters"],
+      // minlength: [50, "Content should have at least 50 characters"],
     },
     author: {
       type: Schema.Types.ObjectId,

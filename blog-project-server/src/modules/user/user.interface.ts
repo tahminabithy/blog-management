@@ -1,6 +1,4 @@
-import { string } from "zod";
-
-interface Iuser {
+export interface Iuser {
   name: string;
   email: string;
   password: string;
@@ -9,9 +7,9 @@ interface Iuser {
   createdAt: Date;
   updatedAt: Date;
 }
-interface authUser {
+export interface authUser {
   email: string;
   password: string;
 }
 
-export type { Iuser, authUser };
+

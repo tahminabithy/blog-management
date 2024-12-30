@@ -1,27 +1,18 @@
 import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../utils/catchAsync";
-
+import jwt, { JwtPayload } from "jsonwebtoken";
+import config from "../config";
 const verifyToken = () => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.headers.authorization);
     const bearerToken = req.headers.authorization;
     if (bearerToken) {
       const token = bearerToken.split(" ")[1];
-      // req.token = token;
+      const decoded = jwt.verify(token, config.tokenSecret as string)
+      req.user=decoded as JwtPayload;
       next();
     }
   });
 };
 
 export default verifyToken;
-// return (req: Request, res: Response, next: NextFunction) => {
-//     const bearerHeader = req.headers["authorization"];
-//     if (typeof bearerHeader !== "undefined") {
-//       const bearer = bearerHeader.split(" ");
-//       const bearerToken = bearer[1];
-//       req.token = bearerToken;
-//       next();
-//     } else {
-//       res.sendStatus(403);
-//     }
-//   };
+

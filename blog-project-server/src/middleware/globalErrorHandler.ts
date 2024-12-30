@@ -1,6 +1,4 @@
-import { NextFunction, Request, Response } from "express";
-import { stat } from "fs";
-import { STATUS_CODES } from "http";
+import { NextFunction, Request, Response } from "express";  
 import { StatusCodes } from "http-status-codes";
 import { DuplicateError } from "../errorsTypes/DuplicateError";
 
@@ -13,12 +11,13 @@ const globalErrorHandler = (
   console.log(err);
   if (err.code === 11000) {
     DuplicateError(err, res);
-  } else if (err instanceof Error) {
+  } 
+  else if (err instanceof Error) {
     res.status(StatusCodes.NOT_FOUND).json({
-      status: false,
+      success: false,
       message: err.message,
-      statuscode: StatusCodes.NOT_FOUND,
-      error: err.message,
+      // statuscode: StatusCodes.NOT_FOUND,
+      error: err,
       stack: err.stack,
     });
   }

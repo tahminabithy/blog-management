@@ -1,26 +1,27 @@
 import config from "../../config";
-import { Iuser, authUser } from "./user.interface";
+import { authUser, Iuser } from "./user.interface";
 import { userModel } from "./user.model";
 import jwt from "jsonwebtoken";
 const createUserInDb = async (payload: Iuser): Promise<Iuser> => {
   const result = await userModel.create(payload);
-
+if(!result){
+  throw new Error("User not created");
+}
   return result;
 };
 const loginUser = async (payload: authUser) => {
   const result = await userModel.findOne({ email: payload.email });
+  console.log("user",result);
   if (!result) {
     throw new Error("Invalid Credentials");
   }
   const token = jwt.sign(
-    { email: result.email, role: result.role },
+    { email: result.email, role: result.role ,userId:result._id},
     config.tokenSecret as string,
     { expiresIn: "1d" }
   );
   const user = {
-    name: result.name,
-    email: result.email,
-    role: result.role,
+    userId:result._id,
     token: token,
   };
   return {
