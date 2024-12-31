@@ -1,7 +1,7 @@
+import QueryBuilder from '../../builder/queryBuilder';
 import { userModel } from '../user/user.model';
 import Iblog from './blog.interface';
 import { blogModel } from './blog.model';
-import QueryBuilder from '../../builder/queryBuilder';
 
 const createBlogInDb = async (
   blog: Omit<Iblog, 'isPublished' | 'createdAt' | 'updatedAt'>,
@@ -37,34 +37,14 @@ const deleteBlogInDb = async (id: string) => {
   }
   return result;
 };
-// const getAllBlogsFromDb= async(query:Record<string,unknown>)=>{
-// // console.log(query);
-// // const queryObj = {...query};
-// // const excludedFields =["search"];
-// // excludedFields.forEach(key=>{
-// //   delete queryObj[key];
-// // })
-// // const serachTerm = (query?.search || "") as string;
-// // const searchQuery = blogModel.find({
-// //   $or:["title","content"].map(field=>(
-// //   {[field]:{$regex:serachTerm as string, $options:'i'}}
-// //   ))
-// // })
-// // const result = await searchQuery.find(queryObj).populate("author");
-// // if(!result || result.length===0){
-// //   throw new Error("No blogs found");
-// // }
 
-// return result;
-// }
-
-const getAllBlogsFromDb = async (payload: Record<string, unknown>) => {
-  const blogs = new QueryBuilder(blogModel.find(), payload).search([
-    'content',
-    'title',
-  ]);
-  console.log(blogs.modelQuery);
-  const result = await blogs.modelQuery;
+const getAllBlogsFromDb = async (query: Record<string, unknown>) => {
+  const blogs = new QueryBuilder(blogModel.find(), query);
+  blogs.doSearch(['title', 'content']);
+  blogs.doSort();
+  blogs.doLimit();
+  blogs.doFilter();
+  const result = await blogs.modelQuery.populate('author');
   return result;
 };
 
@@ -74,38 +54,3 @@ export const blogService = {
   deleteBlogInDb,
   getAllBlogsFromDb,
 };
-
-// query:Record<string,unknown>
-//{e}
-
-// const result = await blogModel.find({
-//   $or:["title","content"].map(field=>(
-//   {[field]:{$regex:query.search as string, $options:'i'}}
-//   ))
-// }).populate("author");
-// {title:{$regex:query.searchTerm as string, $options:'i'}},
-// {content:{$regex:query.searchTerm as string, $options:'i'}}
-
-// excluding query serach term
-//  const duplicateQuery ={...query};
-//  const excludedTerms =["search"]
-//  excludedTerms.forEach(key=>{
-//   delete duplicateQuery[key];
-//  })
-//  console.log(duplicateQuery)
-//  // partial search
-//  const searchTerm= (query?.search || "") as string;
-//  const serachQuery = blogModel.find({
-//   $or:["title","content"].map(field=>(
-//   {[field]:{$regex:searchTerm as string, $options:'i'}}  // i mean case insensitive
-//   ))
-// })
-//   console.log();
-
-// //filtering
-// const result = await serachQuery.find(duplicateQuery).populate("author");
-
-// if(!result || result.length===0){
-//   throw new Error("No blogs found");
-// }
-//  return result;
