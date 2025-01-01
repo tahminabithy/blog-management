@@ -28,8 +28,17 @@ const loginUser = async (payload: authUser) => {
     user,
   };
 };
+const blockUserFromDb = async (id: string) => {
+  const result = await userModel.findByIdAndUpdate(
+    id,
+    { isBlocked: true },
+    { new: true, runValidators: true },
+  );
+  return result;
+};
 
 export const userService = {
   createUserInDb,
   loginUser,
+  blockUserFromDb,
 };

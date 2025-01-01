@@ -18,6 +18,7 @@ export const userSchema = new Schema<Iuser>(
       type: String,
       required: [true, 'Password is required'],
       trim: true,
+      select: false,
     },
     role: {
       type: String,
