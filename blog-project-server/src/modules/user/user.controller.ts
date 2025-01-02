@@ -25,7 +25,10 @@ const login = catchAsync(async (req, res, next) => {
 });
 const blockUser = catchAsync(async (req, res, next) => {
   const query = req.params;
-  console.log(query);
+  const role = req.user.role;
+  if (role === 'User') {
+    throw new Error('You are not authorized to block user');
+  }
   const result = await userService.blockUserFromDb(req.params.userId);
   const responseData = {
     status: true,

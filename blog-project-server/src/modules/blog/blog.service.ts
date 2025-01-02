@@ -1,4 +1,4 @@
-import QueryBuilder from '../../builder/queryBuilder';
+import QueryBuilder from '../../builder/QueryBuilder';
 import { userModel } from '../user/user.model';
 import Iblog from './blog.interface';
 import { blogModel } from './blog.model';

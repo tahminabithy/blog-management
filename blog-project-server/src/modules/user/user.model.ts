@@ -1,8 +1,8 @@
 import { model, Schema } from 'mongoose';
-import Iuser from './user.interface';
 import { userSchema } from './user.schema';
 import bcrypt from 'bcrypt';
 import config from '../../config';
+import { Iuser } from './user.interface';
 
 userSchema.pre('save', async function (next) {
   const user = this;

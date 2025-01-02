@@ -8,7 +8,11 @@ const verifyToken = () => {
     if (bearerToken) {
       const token = bearerToken.split(' ')[1];
       const decoded = jwt.verify(token, config.tokenSecret as string);
+      if (!decoded) {
+        throw new Error('User is not authorized');
+      }
       req.user = decoded as JwtPayload;
+      console.log('decoded', decoded);
       next();
     }
   });
