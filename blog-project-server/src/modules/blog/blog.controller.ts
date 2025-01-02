@@ -25,6 +25,9 @@ const createBlog = catchAsync(
 );
 const updateBlog = catchAsync(async (req, res, next) => {
   const id = req.params.id;
+  if (req.user.role === 'Admin') {
+    throw new Error('You are not authorized to update this blog');
+  }
   const result = await blogService.updateBlogInDb(id, req.body);
   sendResponse(res, {
     status: true,
