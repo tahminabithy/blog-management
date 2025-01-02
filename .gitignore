@@ -1,3 +1,4 @@
 blog-project-server/node_modules
 blog-project-server/dist
 blog-project-server/.env
+.vercel

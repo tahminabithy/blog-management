@@ -1,0 +1,9 @@
+{
+  "projects": [
+    {
+      "name": "blog-management",
+      "source": "blog-project-server/dist",
+      "framework": null
+    }
+  ]
+}
